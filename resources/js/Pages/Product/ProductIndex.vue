@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+const page = usePage();
 </script>
 
 <template>
@@ -14,10 +15,15 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
             </h2>
         </template>
 
+        <!-- TODO : some stylings-->
+        <div v-if="page.props.flash?.message" class="alert">
+            {{ page.props.flash.message }}
+        </div>
+
         <div class="p-12 space-y-6">
             <div class="flex justify-end px-6 mt-6">
                 <PrimaryButton
-                :href="route('product.create')"
+                    :to="route('product.create')"
                     >Create Product</PrimaryButton
                 >
             </div>

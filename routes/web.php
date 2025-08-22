@@ -22,10 +22,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::middlewareGroup('auth', ['auth', 'verified'])->prefix('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('auth')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-
+    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
 });
 
 

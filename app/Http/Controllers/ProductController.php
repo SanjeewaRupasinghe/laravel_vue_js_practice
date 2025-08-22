@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Models\Product;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Inertia::render('Product/ProductIndex');
     }
-    public function create(){
+
+    public function create()
+    {
         return Inertia::render('Product/ProductCreate');
+    }
+
+    public function store(StoreProductRequest $request)
+    {
+        Product::create($request->validated());
+        return redirect(route('product.index'))
+            ->with('message', 'Product created successfully');
     }
 }
