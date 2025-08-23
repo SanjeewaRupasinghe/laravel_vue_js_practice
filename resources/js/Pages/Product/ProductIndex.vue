@@ -11,6 +11,7 @@ import {
     TableRow,
 } from "@/Components/ui/table";
 import { Pencil, Trash2 } from "lucide-vue-next";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const page = usePage();
 const { products } = defineProps({
@@ -42,13 +43,17 @@ const deleteProduct = (id) => {
             </h2>
         </template>
 
-        <!-- TODO : some stylings-->
-        <div v-if="page.props.flash?.message" class="alert">
-            {{ page.props.flash.message }}
+        <div v-if="page.props.flash?.message" class="container mx-6 bg-white rounded-lg shadow">
+            <Alert class="text-white border rounded-lg bg-foreground border-foreground">
+                <AlertTitle class="text-lg font-semibold">Notification!</AlertTitle>
+                <AlertDescription class="text-sm">
+                    {{ page.props.flash.message }}
+                </AlertDescription>
+            </Alert>
         </div>
 
-        <div class="p-12 space-y-6">
-            <div class="flex justify-end px-6 mt-6">
+        <div class="p-12 space-y-6 pt-22">
+            <div class="flex justify-end pb-6">
                 <NavLink
                     :href="route('product.create')"
                     :class="'inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:text-white focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900'"
@@ -82,13 +87,12 @@ const deleteProduct = (id) => {
                             <TableCell>{{ product.created_at }}</TableCell>
                             <TableCell class="text-right">
                                 <div class="flex justify-end space-x-2">
-                                    <Button
-                                        variant="outline"
+                                    <NavLink
                                         size="sm"
-                                        :to="route('product.edit', product.id)"
+                                        :href="route('product.edit', product.id)"
                                     >
                                         <Pencil class="w-4 h-4" />
-                                    </Button>
+                                    </NavLink>
                                     <Button
                                         variant="destructive"
                                         size="sm"

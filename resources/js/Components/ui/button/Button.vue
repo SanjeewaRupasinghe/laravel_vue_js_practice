@@ -9,6 +9,7 @@ const props = defineProps({
   class: { type: null, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false, default: "button" },
+  href: { type: String, required: false },
 });
 </script>
 
@@ -17,6 +18,7 @@ const props = defineProps({
     :as="as"
     :as-child="asChild"
     :class="cn(buttonVariants({ variant, size }), props.class)"
+    :href="href"
   >
     <slot />
   </Primitive>

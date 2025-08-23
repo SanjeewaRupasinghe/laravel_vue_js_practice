@@ -26,7 +26,8 @@ Route::middleware(['auth', 'verified'])->prefix('auth')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('/product', [ProductController::class, 'store'])->name('product.store');
-    Route::post('/product/{product}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('/product/{product}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
