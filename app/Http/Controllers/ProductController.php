@@ -11,7 +11,20 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Product/ProductIndex');
+        $products = Product::latest()->get();
+        
+        return Inertia::render('Product/ProductIndex', [
+            'products' => $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'created_at' => $product->created_at->format('Y-m-d H:i:s'),
+                    'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
+                ];
+            })
+        ]);
     }
 
     public function create()
@@ -24,5 +37,12 @@ class ProductController extends Controller
         Product::create($request->validated());
         return redirect(route('product.index'))
             ->with('message', 'Product created successfully');
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return redirect(route('product.index'))
+            ->with('message', 'Product deleted successfully');
     }
 }
